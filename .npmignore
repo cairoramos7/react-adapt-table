@@ -1,0 +1,32 @@
+# Arquivos e diretórios de desenvolvimento
+src/App.tsx
+src/main.tsx
+src/assets
+public
+
+# Arquivos de configuração de desenvolvimento
+.eslintrc
+.prettierrc
+.vscode
+.github
+
+# Arquivos de build e cache
+node_modules
+.cache
+
+# Arquivos de teste
+**/*.test.*
+**/*.spec.*
+**/__tests__
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de ambiente
+.env*
+
+# Outros
+.DS_Store
+Thumbs.db
