@@ -104,7 +104,7 @@ function App() {
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/react-adapt-table.git
+git clone https://github.com/cairoramos7/react-adapt-table.git
 
 # Install dependencies
 npm install
