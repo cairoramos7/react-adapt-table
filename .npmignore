@@ -9,6 +9,7 @@ public
 .prettierrc
 .vscode
 .github
+DEPLOY.md
 
 # Arquivos de build e cache
 node_modules
