@@ -1,6 +1,6 @@
 {
   "name": "react-adapt-table",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A flexible React table component with support for Tailwind and Bootstrap",
   "author": "Cairo Ramos",
   "license": "MIT",
