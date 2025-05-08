@@ -32,8 +32,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug - Show NPM_TOKEN status
+        run: |
+          echo "Event type: $GITHUB_EVENT_NAME"
+          echo "NPM_TOKEN exists: ${{ secrets.NPM_TOKEN != '' }}"
+          echo "Registry URL: $NPM_CONFIG_REGISTRY"
+
       - name: Publish to NPM
         if: github.event_name == 'release'
-        run: npm publish
+        run: |
+          echo "Publishing to NPM..."
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
