@@ -5,7 +5,7 @@ export interface Column<T> {
   title: string;
   key: string;
   dataIndex?: keyof T;
-  render?: (text: any, record: T) => React.ReactNode;
+  render?: (text: T[keyof T], record: T) => React.ReactNode;
   className?: string;
 }
 

@@ -3,7 +3,7 @@
  * Replaces the functionality of clsx and tailwind-merge with a native implementation
  */
 
-type ClassValue = string | number | boolean | undefined | null | ClassValue[] | Record<string, any>;
+type ClassValue = string | number | boolean | undefined | null | ClassValue[] | Record<string, unknown>;
 
 /**
  * Processes a class value and converts it to a string
@@ -13,14 +13,14 @@ function processClassValue(value: ClassValue): string {
   if (Array.isArray(value)) {
     return value.map(processClassValue).filter(Boolean).join(' ');
   }
-  
+
   // If it's an object, process the keys that have truthy values
   if (value !== null && typeof value === 'object') {
     return Object.keys(value)
       .filter(key => value[key])
       .join(' ');
   }
-  
+
   // Return the value as a string if it's not falsy
   return value ? String(value).trim() : '';
 }
@@ -33,7 +33,7 @@ function resolveConflicts(classString: string): string {
   // Split the string into individual classes
   const classes = classString.split(/\s+/).filter(Boolean);
   const uniqueClasses = new Map<string, string>();
-  
+
   // For each class, identify the prefix (e.g., 'text-', 'bg-') and store the last occurrence
   for (const cls of classes) {
     // Identify the class prefix (up to the first hyphen)
@@ -46,7 +46,7 @@ function resolveConflicts(classString: string): string {
       uniqueClasses.set(cls, cls);
     }
   }
-  
+
   // Return the unique classes
   return Array.from(uniqueClasses.values()).join(' ');
 }
@@ -58,7 +58,7 @@ function resolveConflicts(classString: string): string {
 export function cn(...inputs: ClassValue[]): string {
   // Process all inputs and join them into a single string
   const combinedClasses = inputs.map(processClassValue).filter(Boolean).join(' ');
-  
+
   // Resolve conflicts between classes (similar to tailwind-merge)
   return resolveConflicts(combinedClasses);
 }
