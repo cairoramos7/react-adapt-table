@@ -1,6 +1,6 @@
 {
   "name": "react-adapt-table",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "A flexible React table component with support for Tailwind and Bootstrap",
   "author": "Cairo Ramos",
   "license": "MIT",
@@ -11,6 +11,13 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/react-adapt-table.js",
+      "require": "./dist/react-adapt-table.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

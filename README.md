@@ -12,93 +12,95 @@ yarn add react-adapt-table
 
 ## Usage
 
-### Example with Tailwind CSS
+### Using with Tailwind CSS
+
+Import `TailwindTable` and use it within your Tailwind-configured project.
 
 ```jsx
-import { Table } from 'react-adapt-table';
-import 'tailwindcss/tailwind.css'; // Make sure to import Tailwind in your project
+import { TailwindTable } from 'react-adapt-table';
+// Ensure Tailwind is configured in your project
 
-// Your data
-const data = [
-  { id: 1, name: 'John', age: 30 },
-  { id: 2, name: 'Mary', age: 25 },
-  { id: 3, name: 'Peter', age: 35 },
+const columns = [
+  { title: 'ID', key: 'id', dataIndex: 'id', sortable: true },
+  { title: 'Name', key: 'name', dataIndex: 'name', sortable: true },
+  { title: 'Role', key: 'role', dataIndex: 'role' },
 ];
 
-// Column configuration
-const columns = [
-  {
-    title: 'ID',
-    key: 'id',
-    dataIndex: 'id',
-  },
-  {
-    title: 'Name',
-    key: 'name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Age',
-    key: 'age',
-    dataIndex: 'age',
-  },
-  {
-    title: 'Actions',
-    key: 'actions',
-    render: (_, record) => (
-      <button className="text-blue-500 hover:text-blue-700">
-        Edit
-      </button>
-    ),
-  },
+const data = [
+  { id: 1, name: 'John Doe', role: 'Admin' },
+  // ...
 ];
 
 function App() {
+  const [sortColumn, setSortColumn] = useState('id');
+  const [sortDirection, setSortDirection] = useState('asc');
+
+  const handleSort = (key) => {
+    // Implement your sorting logic here
+    const direction = sortColumn === key && sortDirection === 'asc' ? 'desc' : 'asc';
+    setSortColumn(key);
+    setSortDirection(direction);
+    // sortData(key, direction); 
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">User List</h1>
-      <Table columns={columns} data={data} variant="tailwind" />
-    </div>
+    <TailwindTable 
+      columns={columns} 
+      data={data} 
+      onSort={handleSort}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+    />
   );
 }
 ```
 
-### Example with Bootstrap
+### Using with Bootstrap
+
+Import `BootstrapTable`.
 
 ```jsx
-import { Table } from 'react-adapt-table';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure to import Bootstrap in your project
+import { BootstrapTable } from 'react-adapt-table';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// ... same data and columns code from the previous example
-
+// Logic is identical to the Tailwind example
 function App() {
+  // ... state and sort logic
   return (
-    <div className="container p-4">
-      <h1 className="mb-4">User List</h1>
-      <Table columns={columns} data={data} variant="bootstrap" />
-    </div>
+     <BootstrapTable 
+      columns={columns} 
+      data={data} 
+      onSort={handleSort}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+    />
   );
 }
 ```
 
 ## Properties
 
-| Property | Type | Required | Default | Description |
-|-------------|------|-------------|--------|-------------|
-| columns | Column<T>[] | Yes | - | Table column configuration |
-| data | T[] | No | - | Array of data to be displayed |
-| empty | () => ReactNode | No | - | Function that returns content to be displayed when there is no data |
-| variant | 'tailwind' \| 'bootstrap' | No | 'tailwind' | Defines the visual style of the table |
-
-### Column<T> Interface
+### Table Props (`TailwindTableProps` & `BootstrapTableProps`)
 
 | Property | Type | Required | Description |
-|-------------|------|-------------|-------------|
-| title | string | Yes | Column title |
-| key | string | Yes | Unique column key |
-| dataIndex | keyof T | No | Key in the data object corresponding to this column |
-| render | (text: any, record: T) => ReactNode | No | Function for custom rendering of cell content |
-| className | string | No | Additional CSS classes to apply to the column |
+|---|---|---|---|
+| `columns` | `Column<T>[]` | **Yes** | Array of column definitions |
+| `data` | `T[]` | No | Array of data objects to display |
+| `empty` | `() => ReactNode` | No | Render function for empty state |
+| `onSort` | `(key: string) => void` | No | Callback fired when a sortable header is clicked |
+| `sortColumn` | `string` | No | The key of the currently sorted column (for visual highlighting) |
+| `sortDirection` | `'asc' \| 'desc'` | No | Direction of the sort indicator |
+
+### `Column<T>` Interface
+
+| Property | Type | Required | Description |
+|---|---|---|---|
+| `title` | `string` | **Yes** | Text displayed in the header |
+| `key` | `string` | **Yes** | Unique identifier for the column |
+| `dataIndex` | `keyof T` | No | Key of the data object to display in this column |
+| `render` | `(text, record) => ReactNode` | No | Custom render function for the cell |
+| `className` | `string` | No | CSS class map for the column cells |
+| `sortable` | `boolean` | No | Enable sorting for this column (default: false, requires `onSort` on table) |
 
 ## Development
 
@@ -109,10 +111,10 @@ git clone https://github.com/cairoramos7/react-adapt-table.git
 # Install dependencies
 npm install
 
-# Run the development server
+# Run the development server (Demo App)
 npm run dev
 
-# Build the package for publication
+# Build the package
 npm run build
 ```
 

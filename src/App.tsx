@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Table, type Column } from './lib';
+import { TailwindTable, BootstrapTable, type Column } from './lib';
 
 type User = {
   id: number;
@@ -22,21 +22,25 @@ const App = () => {
       title: 'ID',
       key: 'id',
       dataIndex: 'id',
+      sortable: true,
     },
     {
       title: 'Name',
       key: 'name',
       dataIndex: 'name',
+      sortable: true,
     },
     {
       title: 'Email',
       key: 'email',
       dataIndex: 'email',
+      sortable: true,
     },
     {
       title: 'Role',
       key: 'role',
       dataIndex: 'role',
+      sortable: true,
     },
     {
       title: 'Actions',
@@ -58,19 +62,19 @@ const App = () => {
 
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Tailwind Variant</h2>
-        <Table
+        <TailwindTable
           columns={columns}
           data={users}
-          variant="tailwind"
+          onSort={(key) => console.log('Sort tailwind:', key)}
         />
       </div>
 
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Bootstrap Variant</h2>
-        <Table
+        <BootstrapTable
           columns={columns}
           data={users}
-          variant="bootstrap"
+          onSort={(key) => console.log('Sort bootstrap:', key)}
         />
       </div>
     </div>
