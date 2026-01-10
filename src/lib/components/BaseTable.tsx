@@ -94,8 +94,8 @@ export const BaseTable = <T,>({
                   key={col.key}
                   className={cn(classNames.td, col.className)}
                 >
-                  {col.render && col.dataIndex
-                    ? col.render(item[col.dataIndex], item)
+                  {col.render
+                    ? col.render(col.dataIndex ? item[col.dataIndex] : undefined as T[keyof T], item)
                     : col.dataIndex && item[col.dataIndex] !== undefined
                     ? String(item[col.dataIndex])
                     : null}
